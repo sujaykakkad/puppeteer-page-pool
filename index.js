@@ -379,14 +379,31 @@ class PagePool {
    * const pagePool = new PagePool();
    * await pagePool.process((page, data) => {}, args);
    */
-  async process (handler, ...args) {
+  async process (handler, priority, ...args) {
     if (!this.pool) {
       Helpers.debug('pool is not found. Did you forgot to call launch() method?');
     } else if (typeof (handler) !== 'function') {
       Helpers.debug('handler is not a function');
     } else {
-      await this.pool.use((page) => handler(page, ...args, this.pool))
-        .catch((ex) => Helpers.debug('process error: %s', ex));
+      const fn = (page) => handler(page, ...args, this.pool)
+      await (async () => {
+        try {
+          const resource = await this.pool.acquire(priority)
+          return (async () => {
+            try {
+              const result = await fn(resource)
+              this.pool.release(resource);
+              return result;
+            } catch (err) {
+              this.pool.destroy(resource);
+              throw err;
+            }
+          })();
+        } catch (ex) {
+          Helpers.debug('process error: %s', ex)
+          throw ex
+        }
+      })()
     }
   }
 }
