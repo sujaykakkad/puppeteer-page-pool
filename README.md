@@ -216,7 +216,7 @@ await pagePool.launch();
 ```
 <a name="module_puppeteer-page-pool--PagePool+process"></a>
 
-#### pagePool.process(handler, ...args)
+#### pagePool.process(handler, priority, ...args)
 Process given args using provided handler.
 
 **Kind**: instance method of [<code>PagePool</code>](#exp_module_puppeteer-page-pool--PagePool)  
@@ -230,7 +230,7 @@ Process given args using provided handler.
 ```js
 const args = { key: 'value' };
 const pagePool = new PagePool();
-await pagePool.process((page, data) => {}, args);
+await pagePool.process((page, data) => {}, priority, args);
 ```
 <a name="module_puppeteer-page-pool--PagePool..PoolEventHandler"></a>
 
