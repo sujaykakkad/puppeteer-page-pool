@@ -145,7 +145,7 @@ const promises = [
       fullPage: true,
       path: `${data.url.replace(/https?:|\//g, '')}-screenshot.png`,
     });
-  }, { url });
+  }, priority, { url });
 });
 
 // Wait until it's all done.
@@ -161,7 +161,7 @@ await parallelPagePool.destroy();
         * _instance_
             * [.destroy()](#module_puppeteer-page-pool--PagePool+destroy) ⇒ <code>null</code>
             * [.launch()](#module_puppeteer-page-pool--PagePool+launch)
-            * [.process(handler, ...args)](#module_puppeteer-page-pool--PagePool+process)
+            * [.process(handler, priority, ...args)](#module_puppeteer-page-pool--PagePool+process)
         * _inner_
             * [~PoolEventHandler](#module_puppeteer-page-pool--PagePool..PoolEventHandler) : <code>function</code>
             * [~Options](#module_puppeteer-page-pool--PagePool..Options) : <code>Object</code>
