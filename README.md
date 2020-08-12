@@ -145,7 +145,7 @@ const promises = [
       fullPage: true,
       path: `${data.url.replace(/https?:|\//g, '')}-screenshot.png`,
     });
-  }, priority, { url });
+  }, null, { url });
 });
 
 // Wait until it's all done.
@@ -224,7 +224,15 @@ Process given args using provided handler.
 | Param | Type | Description |
 | --- | --- | --- |
 | handler | <code>ActionHandler</code> | Action handler. |
+| priority | <code>Number</code> | Priority for the operation. |
 | ...args | <code>\*</code> | Action handler arguments. |
+
+---
+**Note:**
+Priority will only work if priorityRange option is provided in pool options
+Read more about it in [Pool Options](https://bit.ly/2GXZbUR)
+---
+
 
 **Example**  
 ```js
