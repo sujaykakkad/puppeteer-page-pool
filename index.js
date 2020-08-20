@@ -17,8 +17,14 @@
  */
 
 const { createPool } = require('generic-pool');
-const Debug = require('debug');
-const defaultPuppeteer = require('puppeteer');
+const Debug = require('debug'); 
+let defaultPuppeteer
+try {
+  defaultPuppeteer = require('puppeteer');
+} catch (e) {
+  defaultPuppeteer = require('puppeteer-core')
+  console.warn('Peer Dependency not Found Make Sure you have provided browser path')
+}
 
 const Helpers = {
   createPool,
